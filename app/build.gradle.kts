@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -42,9 +43,15 @@ android {
 }
 
 dependencies {
+    //Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-analytics" )
     implementation("com.google.firebase:firebase-crashlytics")
+    //Room
+    implementation ("androidx.room:room-runtime:2.5.0") // Библиотека "Room"
+    kapt ("androidx.room:room-compiler:2.5.0") // Кодогенератор
+    implementation ("androidx.room:room-ktx:2.5.0") // Дополнительно для Kotlin Coroutines, Kotlin Flows
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
