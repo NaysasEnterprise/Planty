@@ -36,6 +36,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
+    throw Exception("Test for Crashlytics")
 }
 
 @Preview(showBackground = true)
