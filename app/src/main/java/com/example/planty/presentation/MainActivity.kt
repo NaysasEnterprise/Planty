@@ -1,4 +1,4 @@
-package com.example.planty
+package com.example.planty.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
