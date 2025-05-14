@@ -4,7 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-    id ("kotlin-kapt")
+    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
+
+
 }
 
 android {
@@ -49,8 +51,13 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     //Room
     implementation ("androidx.room:room-runtime:2.5.0") // Библиотека "Room"
-    kapt ("androidx.room:room-compiler:2.5.0") // Кодогенератор
+    ksp ("androidx.room:room-compiler:2.5.0") // Кодогенератор
     implementation ("androidx.room:room-ktx:2.5.0") // Дополнительно для Kotlin Coroutines, Kotlin Flows
+
+    //Compose
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
