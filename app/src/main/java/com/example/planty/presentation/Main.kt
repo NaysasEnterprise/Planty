@@ -33,6 +33,10 @@ fun Main() {
         NavItemState(
             itemState = "settings",
             icon = R.drawable.settingsbutton
+        ),
+        NavItemState(
+            itemState = "notifications",
+            icon = R.drawable.baseline_notifications_24
         )
     )
 
@@ -48,11 +52,19 @@ fun Main() {
                 items.forEachIndexed { index, navItemState ->
                     NavigationBarItem(
                         selected = navBarState == index,
-                        onClick = { navBarState = index
-                                  if(navBarState == 0) {
-                                      navController.navigate("main")
-                                  }
-                                  else navController.navigate("settings")},
+                        onClick = {
+                            navBarState = index
+                            if (navBarState == 0) {
+                                navController.navigate("main")
+                            } else if (
+                                navBarState == 1) {
+                                navController.navigate("settings")
+                            } else if (
+                                navBarState == 2
+                            ) {
+                                navController.navigate("notifications")
+                            }
+                        },
                         icon = {
                             Icon(
                                 painter = painterResource(id = navItemState.icon),
@@ -68,18 +80,10 @@ fun Main() {
         Box(
             modifier = Modifier
                 .padding(padding)
-                .fillMaxSize()
-            ,
+                .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             MyNavGraph(navController)
         }
     }
-}
-
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewMainScreen() {
-    Main()
 }
