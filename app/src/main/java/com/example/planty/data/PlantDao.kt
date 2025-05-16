@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PlantDao {
     @Insert
-    fun insertPlant(plant: Plant)
+    suspend fun insertPlant(plant: Plant)
     @Delete
-    fun deletePlant(plant: Plant)
+    suspend fun deletePlant(plant: Plant)
     @Update
-    fun updatePlant(plant: Plant)
+    suspend fun updatePlant(plant: Plant)
     @Query("SELECT * FROM plants")
     fun getAllPlants() : Flow<List<Plant>>
     // TODO: Расширить возможности обращения к базе данных 

@@ -3,6 +3,7 @@ package com.example.planty.presentation
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,16 +51,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.planty.R
+import com.example.planty.garbage.Gender
 import com.example.planty.ui.theme.PlantyTheme
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    mainViewModel: PlantViewModel = hiltViewModel()
+) {
     val rememberWidth = LocalConfiguration.current.screenWidthDp.dp // TODO: viewModel
     val rememberHeight = LocalConfiguration.current.screenHeightDp.dp
     val context = LocalContext.current
+    val selectedGender = remember { mutableStateOf<Gender?>(null) }
     PlantyTheme {
         Column(
             modifier = Modifier
@@ -100,26 +106,41 @@ fun SettingsScreen() {
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ellipseperson),
-                        contentDescription = stringResource(R.string.ellipseProfile)
-                    )
+                Box(
+                    modifier = Modifier.clickable {
+                        selectedGender.value = Gender.FEMALE
+                    },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (selectedGender.value == Gender.FEMALE) {
+                        Image(
+                            imageVector = ImageVector.vectorResource(R.drawable.ellipseperson),
+                            contentDescription = stringResource(R.string.ellipseProfile)
+                        )
+                    }
                     Image(
                         imageVector = ImageVector.vectorResource(R.drawable.woman),
                         contentDescription = stringResource(R.string.woman)
                     )
                 }
-                Box(contentAlignment = Alignment.Center) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ellipseperson),
-                        contentDescription = stringResource(R.string.ellipseProfile)
-                    )
+
+                Box(
+                    modifier = Modifier.clickable {
+                        selectedGender.value = Gender.MALE
+                    },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (selectedGender.value == Gender.MALE) {
+                        Image(
+                            imageVector = ImageVector.vectorResource(R.drawable.ellipseperson),
+                            contentDescription = stringResource(R.string.ellipseProfile)
+                        )
+                    }
                     Image(
                         imageVector = ImageVector.vectorResource(R.drawable.man),
-                        contentDescription = stringResource(R.string.man)// TODO: стилизовать
+                        contentDescription = stringResource(R.string.man)
                     )
                 }
             }
@@ -197,7 +218,9 @@ fun SettingsScreen() {
             ) {
                 Switch(
                     checked = false,
-                    onCheckedChange = {}, // TODO: viewModel
+                    onCheckedChange = {
+
+                    }, // TODO: viewModel
                     colors = SwitchDefaults.colors(
                         uncheckedThumbColor = colorResource(R.color.beige),
                         checkedThumbColor = colorResource(R.color.beige),

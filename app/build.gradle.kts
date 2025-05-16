@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
-
+    id("com.google.devtools.ksp")
+    id ("dagger.hilt.android.plugin")
 
 }
 
@@ -50,15 +50,21 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics" )
     implementation("com.google.firebase:firebase-crashlytics")
     //Room
-    implementation ("androidx.room:room-runtime:2.5.0") // Библиотека "Room"
-    ksp ("androidx.room:room-compiler:2.5.0") // Кодогенератор
-    implementation ("androidx.room:room-ktx:2.5.0") // Дополнительно для Kotlin Coroutines, Kotlin Flows
+    implementation ("androidx.room:room-runtime:2.7.1")
+    implementation(libs.androidx.espresso.core) // Библиотека "Room"
+    ksp ("androidx.room:room-compiler:2.7.1") // Кодогенератор
+    implementation ("androidx.room:room-ktx:2.7.1") // Дополнительно для Kotlin Coroutines, Kotlin Flows
 
     //Compose
     implementation("androidx.navigation:navigation-compose:2.9.0")
 
     //Splash
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //Hilt
+    implementation (libs.hilt.android)
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    ksp (libs.dagger.hilt.compiler)
 
 
     implementation(libs.androidx.core.ktx)
