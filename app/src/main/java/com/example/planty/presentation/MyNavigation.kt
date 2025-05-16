@@ -15,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.planty.R
 
@@ -24,7 +23,7 @@ import com.example.planty.garbage.NavItemState
 
 
 @Composable
-fun Main() {
+fun MyNavigation() {
     val items = listOf(
         NavItemState(
             itemState = "main",
@@ -36,7 +35,7 @@ fun Main() {
         ),
         NavItemState(
             itemState = "notifications",
-            icon = R.drawable.baseline_notifications_24
+            icon = R.drawable.alarm
         )
     )
 
@@ -54,15 +53,18 @@ fun Main() {
                         selected = navBarState == index,
                         onClick = {
                             navBarState = index
-                            if (navBarState == 0) {
-                                navController.navigate("main")
-                            } else if (
-                                navBarState == 1) {
-                                navController.navigate("settings")
-                            } else if (
-                                navBarState == 2
-                            ) {
-                                navController.navigate("notifications")
+                            when (navBarState) {
+                                0 -> {
+                                    navController.navigate("main")
+                                }
+
+                                1 -> {
+                                    navController.navigate("settings")
+                                }
+
+                                2 -> {
+                                    navController.navigate("notifications")
+                                }
                             }
                         },
                         icon = {

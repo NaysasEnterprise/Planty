@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 @Composable
 fun NotificationsScreen() {
     Scaffold(
-        modifier = Modifier // TODO: Дополнить Modifier экрана настроек(настроить)
+        modifier = Modifier // TODO: Дополнить Modifier экрана уведомлений(настроить)
     ) { padding ->
-        Text(modifier = Modifier.padding(padding), text = "Settings")
+        Text(modifier = Modifier.padding(padding), text = "Notifications")
     }
 }
