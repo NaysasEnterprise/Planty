@@ -105,7 +105,6 @@ fun LoadScreen() {
     }
 }
 
-
 @Composable
 @Preview(showBackground = true)
 fun PreviewLoadScreen() {

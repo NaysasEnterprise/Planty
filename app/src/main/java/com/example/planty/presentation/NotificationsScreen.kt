@@ -1,16 +1,17 @@
 package com.example.planty.presentation
 
+import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -19,12 +20,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planty.R
+import com.example.planty.data.NotificationServiceFirebase
+import com.example.planty.data.NotificationServiceLocal
 import com.example.planty.ui.theme.PlantyTheme
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 
 @Composable
 fun NotificationsScreen() {
     val rememberWidth = LocalConfiguration.current.screenWidthDp.dp // TODO: viewModel
     val rememberHeight = LocalConfiguration.current.screenHeightDp.dp
+    val context = LocalContext.current
     PlantyTheme {
         Column(
             modifier = Modifier
@@ -61,6 +67,13 @@ fun NotificationsScreen() {
                     )
                 ),
             )
+            Button(
+                onClick = { NotificationServiceLocal.showNotification(context = context)}
+            ) {
+                FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                    Log.d("ТОКЕН",it.result)
+                }
+            }
             // TODO: добавить лист, в который будут попадать уведомления 
 
         }

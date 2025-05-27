@@ -18,7 +18,6 @@ class PlantViewModel @Inject constructor(
     private val plantDao: PlantDao
 ) : ViewModel() {
 
-    // StateFlow для наблюдения за изменениями
     val plants: StateFlow<List<Plant>> = plantDao.getAllPlants()
         .stateIn(
             scope = viewModelScope,
@@ -26,7 +25,7 @@ class PlantViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    fun addPlant(name: String = "Артём") {
+    fun addPlant(name: String = "") {
         viewModelScope.launch {
             val newPlant = Plant(
                 name = name,

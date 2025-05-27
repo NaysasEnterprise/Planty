@@ -49,11 +49,12 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-analytics" )
     implementation("com.google.firebase:firebase-crashlytics")
+    implementation(libs.firebase.messaging)
     //Room
     implementation ("androidx.room:room-runtime:2.7.1")
-    implementation(libs.androidx.espresso.core) // Библиотека "Room"
-    ksp ("androidx.room:room-compiler:2.7.1") // Кодогенератор
-    implementation ("androidx.room:room-ktx:2.7.1") // Дополнительно для Kotlin Coroutines, Kotlin Flows
+    implementation(libs.androidx.espresso.core)
+    ksp ("androidx.room:room-compiler:2.7.1")
+    implementation ("androidx.room:room-ktx:2.7.1")
 
     //Compose
     implementation("androidx.navigation:navigation-compose:2.9.0")
