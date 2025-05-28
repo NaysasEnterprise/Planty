@@ -1,4 +1,4 @@
-package com.example.planty.data
+package com.example.planty.data.notifications
 
 import android.app.NotificationManager
 import android.content.Context

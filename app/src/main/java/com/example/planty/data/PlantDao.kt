@@ -18,5 +18,7 @@ interface PlantDao {
     suspend fun updatePlant(plant: Plant)
     @Query("SELECT * FROM plants")
     fun getAllPlants() : Flow<List<Plant>>
-    // TODO: Расширить возможности обращения к базе данных 
+    // TODO: Расширить возможности обращения к базе данных
+    @Query("DELETE FROM plants")
+    suspend fun deleteDatabase()
 }

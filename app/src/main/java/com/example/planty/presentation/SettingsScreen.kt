@@ -16,29 +16,22 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.colorResource
-import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -47,13 +40,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
 import com.example.planty.R
 import com.example.planty.garbage.Gender
 import com.example.planty.ui.theme.PlantyTheme
@@ -241,18 +232,38 @@ fun SettingsScreen(
             Box(
                 Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
-            ) { // TODO: стилизовать
-                Button(
+            ) {
+                Card(
                     onClick = {},
-                    content = { Text(stringResource(R.string.saveButton)) }// TODO: viewModel
-                )
+                    modifier = Modifier
+                        .width(rememberWidth * 0.75f)
+                        .height(rememberHeight * 0.08f),
+                    colors = CardDefaults.cardColors().copy(
+                        containerColor = colorResource(R.color.green)
+                    )
+                ) {
+                    Box(
+                        Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.saveButton),
+                            style = TextStyle(
+                                fontFamily = FontFamily(
+                                    Font(
+                                        R.font.inter_bold
+                                    )
+                                ),
+                                color = colorResource(R.color.beige),
+                                fontSize = 36.sp
+                            )
+                        )
+                    }
+                }
             }
         }
-
-
     }
 }
-
 
 @Composable
 @Preview(showBackground = true)

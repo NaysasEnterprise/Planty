@@ -23,13 +23,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.planty.R
+import com.example.planty.garbage.Screen
 import com.example.planty.ui.theme.PlantyTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +42,7 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun MainScreen(
+    navController: NavController,
     viewModel: PlantViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -46,21 +52,21 @@ fun MainScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = colorResource(R.color.beige))
-                .padding(16.dp)
+                .padding(24.dp)
         ) {
             Text(
-                text = "Мои растения",
+                text = stringResource(R.string.my_plants),
                 style = TextStyle(
-                    fontSize = 32.sp,
+                    fontSize = 64.sp,
                     color = colorResource(R.color.darkBrown),
                     fontWeight = FontWeight.Bold
                 ),
                 modifier = Modifier.padding(bottom = 24.dp)
             )
-            LazyRow (
+            LazyRow(
             ) {
                 items(plants) { plant ->
-                    PlantItem(plant.name)
+                    plant.name?.let { PlantItem(it) }
                 }
             }
 
@@ -70,11 +76,10 @@ fun MainScreen(
                     .padding(vertical = 16.dp)
                     .clickable {
                         viewModel.viewModelScope.launch {
-                            withContext(Dispatchers.IO) {
-                                viewModel.addPlant()
+                            withContext(Dispatchers.Main) {
+                                navController.navigate(Screen.AddPlantScreen.route)
                             }
                         }
-                        Toast.makeText(context,"Растение добавлено",Toast.LENGTH_SHORT).show()
                     }
             ) {
                 Text(

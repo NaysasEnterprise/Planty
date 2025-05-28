@@ -8,8 +8,8 @@ data class Plant(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
-    val name: String,
-    val species: String? = null,       // Вид растения (например, "Какой то недо-Росток")
-    val photoUri: String? = null,      // Ссылка на фото (локальный путь или URL)
+    var name: String? = null,
+    val species: String? = null,       // Тип растения (например, "Какой то недо-Росток")
+    val photoUri: Int? = null,      // Ссылка на фото (локальный путь или URL)
     // TODO: Расширить базу данных(добавить таблицы, настроить связи между ними, расширить таблицы)
 )

@@ -20,11 +20,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planty.R
-import com.example.planty.data.NotificationServiceFirebase
-import com.example.planty.data.NotificationServiceLocal
+import com.example.planty.data.notifications.NotificationServiceLocal
 import com.example.planty.ui.theme.PlantyTheme
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
 
 @Composable
 fun NotificationsScreen() {

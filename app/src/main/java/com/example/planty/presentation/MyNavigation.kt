@@ -19,11 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.planty.R
 
 import com.example.planty.garbage.MyNavGraph
 import com.example.planty.garbage.NavItemState
+import com.example.planty.garbage.Screen
 
 
 @Composable
@@ -43,10 +45,13 @@ fun MyNavigation() {
         )
     )
 
-    var navBarState by rememberSaveable {
-        mutableIntStateOf(0)
-    }
     val navController = rememberNavController()
+
+    var navBarState by rememberSaveable {
+        mutableIntStateOf(
+            0
+        )
+    }
 
     Scaffold(
         modifier = Modifier, // TODO: Дополнить Modifier главного экрана(настроить)
@@ -67,15 +72,15 @@ fun MyNavigation() {
                             navBarState = index
                             when (navBarState) {
                                 0 -> {
-                                    navController.navigate("main")
+                                    navController.navigate(Screen.MainScreen.route)
                                 }
 
                                 1 -> {
-                                    navController.navigate("settings")
+                                    navController.navigate(Screen.SettingsScreen.route)
                                 }
 
                                 2 -> {
-                                    navController.navigate("notifications")
+                                    navController.navigate(Screen.NotificationsScreen.route)
                                 }
                             }
                         },

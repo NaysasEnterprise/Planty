@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.planty.data.PlantDao
 import com.example.planty.data.PlantyRepository
+import com.example.planty.data.model.DefaultPlants
 import com.example.planty.entity.Plant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,15 +23,18 @@ class PlantViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000), // 5 секунд таймаут при отсутствии подписчиков
-            initialValue = emptyList()
+            initialValue = DefaultPlants.plantsList
         )
 
-    fun addPlant(name: String = "") {
+    fun addPlant(plant: Plant) {
         viewModelScope.launch {
-            val newPlant = Plant(
-                name = name,
-            )
-            plantDao.insertPlant(newPlant)
+            plantDao.insertPlant(plant)
+        }
+    }
+
+    fun deleteAllDatabase() {
+        viewModelScope.launch {
+            plantDao.deleteDatabase()
         }
     }
 }

@@ -10,4 +10,7 @@
     <string name="notifications">Уведомления</string>
     <string name="saveButton">Сохранить</string>
     <string name="needsWater">Нуждаются в поливе</string>
+    <string name="add_plant">addPlant</string>
+    <string name="name_plant">Имя растения</string>
+    <string name="my_plants">Мои растения</string>
 </resources>

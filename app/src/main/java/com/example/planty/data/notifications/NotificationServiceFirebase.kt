@@ -1,4 +1,4 @@
-package com.example.planty.data
+package com.example.planty.data.notifications
 
 import com.google.firebase.messaging.FirebaseMessagingService
 

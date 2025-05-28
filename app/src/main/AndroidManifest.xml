@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".data.NotificationServiceFirebase"
+        <service android:name=".data.notifications.NotificationServiceFirebase"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MESSAGING_EVENT" />
