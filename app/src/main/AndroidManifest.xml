@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
+
     <application
         android:name=".application.App"
         android:allowBackup="true"
@@ -31,6 +32,7 @@
                 <action android:name="android.intent.action.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <receiver android:name=".workers.WateringReminderReceiver" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

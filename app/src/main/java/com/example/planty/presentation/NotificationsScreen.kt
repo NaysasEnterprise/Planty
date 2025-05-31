@@ -65,13 +65,7 @@ fun NotificationsScreen() {
                     )
                 ),
             )
-            Button(
-                onClick = { NotificationServiceLocal.showNotification(context = context)}
-            ) {
-                FirebaseMessaging.getInstance().token.addOnCompleteListener {
-                    Log.d("ТОКЕН",it.result)
-                }
-            }
+
             // TODO: добавить лист, в который будут попадать уведомления 
 
         }

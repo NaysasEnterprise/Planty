@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.planty"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -53,6 +53,8 @@ dependencies {
     //Room
     implementation ("androidx.room:room-runtime:2.7.1")
     implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.animation.core.android)
+    implementation(libs.androidx.animation.core.android)
     ksp ("androidx.room:room-compiler:2.7.1")
     implementation ("androidx.room:room-ktx:2.7.1")
 
@@ -66,7 +68,7 @@ dependencies {
     implementation (libs.hilt.android)
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     ksp (libs.dagger.hilt.compiler)
-
+    implementation ("androidx.work:work-runtime-ktx:2.9.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -1,6 +1,8 @@
 package com.example.planty.presentation
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
@@ -53,7 +55,9 @@ import com.example.planty.data.model.DefaultPlants
 import com.example.planty.entity.Plant
 import com.example.planty.ui.theme.PlantyTheme
 import kotlinx.coroutines.launch
+import java.time.Instant
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPlantScreen(
@@ -71,17 +75,18 @@ fun AddPlantScreen(
     var searchText by remember {
         mutableStateOf("")
     }
+    var isValidPlantType by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
     val filteredOptions = remember(searchText, DefaultPlants.plantsList) {
         if (searchText.isBlank()) {
             DefaultPlants.plantsList
         } else {
             val prefixMatches = DefaultPlants.plantsList.filter { plant ->
-                plant.name?.startsWith(searchText, ignoreCase = true) ?: false
+                plant.species?.startsWith(searchText, ignoreCase = true) ?: false
             }
             prefixMatches.ifEmpty {
                 DefaultPlants.plantsList.filter {
-                    it.name?.contains(searchText, ignoreCase = true) ?: false
+                    it.species?.contains(searchText, ignoreCase = true) ?: false
                 }
             }
         }
@@ -102,11 +107,22 @@ fun AddPlantScreen(
 
             ) {
                 Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.addplant),
-                    contentDescription = stringResource(R.string.add_plant),
+                    imageVector = ImageVector.vectorResource(R.drawable.ellipse_1),
+                    contentDescription = "ellipse",
                     modifier = Modifier
-                        .padding()
+                        .fillMaxWidth()
+                        .height(rememberHeight * 0.3f)
                 )
+                selectedPlant.photoUri?.let { ImageVector.vectorResource(it) }?.let {
+                    Image(
+                        imageVector = it,
+                        contentDescription = stringResource(R.string.add_plant),
+                        modifier = Modifier
+                            .padding()
+                            .fillMaxWidth()
+                            .height(rememberHeight * 0.25f)
+                    )
+                }
             }
             var message = remember { mutableStateOf("") } // TODO: viewModel
             val maxChar = 20
@@ -182,6 +198,9 @@ fun AddPlantScreen(
                         value = searchText,
                         onValueChange = {
                             searchText = it
+                            isValidPlantType = DefaultPlants.plantsList.any { plant ->
+                                plant.species.equals(it, ignoreCase = true)
+                            }
                             if (it.isNotEmpty()) expanded = true
                         },
                         textStyle = TextStyle(
@@ -218,10 +237,13 @@ fun AddPlantScreen(
                     ) {
                         filteredOptions.forEach { plant ->
                             DropdownMenuItem(
-                                text = { plant.name?.let { Text(it) } },
+                                text = { plant.species?.let { Text(it) } },
                                 onClick = {
                                     selectedPlant = plant
-                                    searchText = plant.name.toString()
+                                    searchText = plant.species.toString()
+                                    isValidPlantType = DefaultPlants.plantsList.any { plant ->
+                                        plant.species.equals(searchText, ignoreCase = true)
+                                    }
                                     expanded = false
                                 },
                             )
@@ -235,11 +257,26 @@ fun AddPlantScreen(
             ) {
                 Card(
                     onClick = {
-                        viewModel.viewModelScope.launch {
-                            viewModel.addPlant(Plant(name = searchText))
-                            Toast
-                                .makeText(context, "Растение добавлено", Toast.LENGTH_SHORT)
+                        if (isValidPlantType && message.value.isNotBlank()) {
+                            val newPlant = selectedPlant.copy(
+                                name = message.value,
+                                nextWateringTime = Instant.now()
+                            )
+                            viewModel.viewModelScope.launch {
+                                viewModel.addPlant(newPlant, )
+
+                                Toast.makeText(context, "Растение добавлено", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        } else if (message.value.isBlank()) {
+                            Toast.makeText(context, "Введите название растения", Toast.LENGTH_SHORT)
                                 .show()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Выберите корректный тип растения",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     },
                     modifier = Modifier
@@ -272,9 +309,3 @@ fun AddPlantScreen(
     }
 }
 
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewAddPlantScreen() {
-    AddPlantScreen()
-}

@@ -13,4 +13,6 @@
     <string name="add_plant">addPlant</string>
     <string name="name_plant">Имя растения</string>
     <string name="my_plants">Мои растения</string>
+    <string name="need_water">Нужен полив</string>
+    <string name="delete_button">Удалить</string>
 </resources>
