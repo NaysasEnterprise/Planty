@@ -2,6 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.google.devtools.ksp")
+    id ("dagger.hilt.android.plugin")
+
 }
 
 android {
@@ -10,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.planty"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +45,30 @@ android {
 }
 
 dependencies {
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-analytics" )
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation(libs.firebase.messaging)
+    //Room
+    implementation ("androidx.room:room-runtime:2.7.1")
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.animation.core.android)
+    implementation(libs.androidx.animation.core.android)
+    ksp ("androidx.room:room-compiler:2.7.1")
+    implementation ("androidx.room:room-ktx:2.7.1")
+
+    //Compose
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+
+    //Splash
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //Hilt
+    implementation (libs.hilt.android)
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    ksp (libs.dagger.hilt.compiler)
+    implementation ("androidx.work:work-runtime-ktx:2.9.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

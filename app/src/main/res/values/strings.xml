@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Planty</string>
+    <string name="settings">Настройки</string>
+    <string name="profile">Мой профиль</string>
+    <string name="woman">Woman</string>
+    <string name="ellipseProfile">ellipse</string>
+    <string name="man">Man</string>
+    <string name="toastFieldText">Количество символов превышено!</string>
+    <string name="name">Имя</string>
+    <string name="notifications">Уведомления</string>
+    <string name="saveButton">Сохранить</string>
+    <string name="needsWater">Нуждаются в поливе</string>
+    <string name="add_plant">addPlant</string>
+    <string name="name_plant">Имя растения</string>
+    <string name="my_plants">Мои растения</string>
+    <string name="need_water">Нужен полив</string>
+    <string name="delete_button">Удалить</string>
 </resources>
