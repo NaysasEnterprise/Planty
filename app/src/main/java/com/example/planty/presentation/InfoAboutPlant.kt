@@ -195,21 +195,19 @@ fun InformationPlant(plant: Plant) {
                 modifier = Modifier.padding(bottom = 24.dp)
             )
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Text(
-                text = plant.getCreationDateFormatted(),
-                style = TextStyle(
-                    fontFamily = FontFamily(
-                        Font(
-                            R.font.inter_medium
-                        )
-                    ),
-                    color = colorResource(R.color.darkBrown),
-                    fontSize = 32.sp
+        Text(
+            text = plant.getCreationDateFormatted(),
+            style = TextStyle(
+                fontFamily = FontFamily(
+                    Font(
+                        R.font.inter_medium
+                    )
                 ),
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-        }
+                color = colorResource(R.color.darkBrown),
+                fontSize = 32.sp
+            ),
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
         Text(
             text = "Частота полива(лето/зима): раз в " + plant.getWateringIntervalFormatted(),
             style = TextStyle(

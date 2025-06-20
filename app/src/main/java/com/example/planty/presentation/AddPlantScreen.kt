@@ -57,7 +57,6 @@ import com.example.planty.ui.theme.PlantyTheme
 import kotlinx.coroutines.launch
 import java.time.Instant
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPlantScreen(
@@ -263,8 +262,7 @@ fun AddPlantScreen(
                                 nextWateringTime = Instant.now()
                             )
                             viewModel.viewModelScope.launch {
-                                viewModel.addPlant(newPlant, )
-
+                                viewModel.addPlant(newPlant)
                                 Toast.makeText(context, "Растение добавлено", Toast.LENGTH_SHORT)
                                     .show()
                             }

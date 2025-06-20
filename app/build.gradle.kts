@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.animation.core.android)
     implementation(libs.androidx.animation.core.android)
+    implementation(libs.androidx.hilt.work)
     ksp ("androidx.room:room-compiler:2.7.1")
     implementation ("androidx.room:room-ktx:2.7.1")
 
@@ -68,7 +69,11 @@ dependencies {
     implementation (libs.hilt.android)
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     ksp (libs.dagger.hilt.compiler)
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    implementation ("androidx.hilt:hilt-work:1.2.0")
+    //Work
     implementation ("androidx.work:work-runtime-ktx:2.9.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.8.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

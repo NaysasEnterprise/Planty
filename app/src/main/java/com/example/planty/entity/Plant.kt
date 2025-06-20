@@ -1,8 +1,6 @@
 package com.example.planty.entity
 
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.Instant
@@ -18,50 +16,47 @@ data class Plant(
     val species: String? = null,
     val photoUri: Int? = null,
 
-    var nextWateringTime: Instant, // Время следующего полива
-    val wateringInterval: Duration, // Интервал полива
+    var nextWateringTime: Instant,
+    val wateringInterval: Duration,
 
-    val creationDate: Instant = Instant.now(), // Автоматически при создании
+    val creationDate: Instant = Instant.now(),
     var lastWateringDate: Instant? = null,
     var notes: String? = null,
     var careFeatures: String? = null
 ) {
-    // Проверка, нужно ли поливать сейчас
     companion object {
         private val dateFormatter by lazy {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy")
-            } else {
-                null
-            }
-        }
-    }
-    fun needsWatering(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            nextWateringTime <= Instant.now()
-        } else {
-            TODO("VERSION.SDK_INT < O")
+            java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy")
         }
     }
 
-    // Форматированная дата создания
-    @RequiresApi(Build.VERSION_CODES.O)
+    fun needsWatering(): Boolean {
+        return nextWateringTime <= Instant.now()
+    }
+
     fun getCreationDateFormatted(): String {
         return creationDate.atZone(java.time.ZoneId.systemDefault())
             .format(dateFormatter)
     }
 
     fun getWateringIntervalFormatted(): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            when {
-                wateringInterval.toDays() > 0 -> "${wateringInterval.toDays()} ${pluralDays(wateringInterval.toDays())}"
-                wateringInterval.toHours() > 0 -> "${wateringInterval.toHours()} ${pluralHours(wateringInterval.toHours())}"
-                else -> "${wateringInterval.toMinutes()} минут"
-            }
-        } else {
-            throw UnsupportedOperationException("Requires API 26+")
+        return when {
+            wateringInterval.toDays() > 0 -> "${wateringInterval.toDays()} ${
+                pluralDays(
+                    wateringInterval.toDays()
+                )
+            }"
+
+            wateringInterval.toHours() > 0 -> "${wateringInterval.toHours()} ${
+                pluralHours(
+                    wateringInterval.toHours()
+                )
+            }"
+
+            else -> "${wateringInterval.toMinutes()} минут"
         }
     }
+
     private fun pluralDays(days: Long): String {
         return when (days % 10) {
             1L -> "день"
@@ -69,6 +64,7 @@ data class Plant(
             else -> "дней"
         }
     }
+
     private fun pluralHours(hours: Long): String {
         return when (hours % 10) {
             1L -> "час"
@@ -78,10 +74,6 @@ data class Plant(
     }
 
     fun timeUntilWatering(): Duration {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Duration.between(Instant.now(), nextWateringTime)
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
+        return Duration.between(Instant.now(), nextWateringTime)
     }
 }

@@ -1,11 +1,8 @@
-package com.example.planty.data
+package com.example.planty.di
 
 import android.content.Context
-import androidx.room.Room
 import androidx.work.WorkManager
 import com.example.planty.data.notifications.LocalNotificationService
-
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,24 +10,21 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
-
+object AppModule {
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): PlantDatabase {
-        return Room.databaseBuilder(
-            context,
-            PlantDatabase::class.java,
-            "plant-database"
-        ).build()
+    fun provideWorkManager(
+        @ApplicationContext context: Context
+    ) : WorkManager {
+        return WorkManager.getInstance(context)
     }
 
     @Provides
-    fun providePlantDao(database: PlantDatabase): PlantDao {
-        return database.dao
+    @Singleton
+    fun provideNotificationService(@ApplicationContext context: Context): LocalNotificationService {
+        return LocalNotificationService(context)
     }
 
 }

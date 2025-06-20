@@ -20,7 +20,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planty.R
-import com.example.planty.data.notifications.NotificationServiceLocal
 import com.example.planty.ui.theme.PlantyTheme
 import com.google.firebase.messaging.FirebaseMessaging
 
